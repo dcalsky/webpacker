@@ -17,26 +17,9 @@ directory "#{__dir__}/javascript", Webpacker.config.source_path
 puts "Copying binstubs"
 directory "#{__dir__}/bin", "bin"
 
-chmod "bin", 0755 & ~File.umask, verbose: false
-
-if File.exists?(".gitignore")
-  append_to_file ".gitignore", <<-EOS
-/public/packs
-/public/packs-test
-/node_modules
-EOS
-end
 
 puts "Installing all JavaScript dependencies"
-run "yarn add webpack webpack-merge js-yaml path-complete-extname " \
-"webpack-manifest-plugin babel-loader@7.x coffee-loader coffee-script " \
-"babel-core babel-preset-env babel-polyfill compression-webpack-plugin rails-erb-loader glob " \
-"extract-text-webpack-plugin node-sass file-loader sass-loader css-loader style-loader " \
-"postcss-loader postcss-cssnext postcss-smart-import resolve-url-loader " \
-"babel-plugin-syntax-dynamic-import babel-plugin-transform-class-properties " \
-"babel-plugin-transform-object-rest-spread"
-
-puts "Installing dev server for live reloading"
-run "yarn add --dev webpack-dev-server"
+run "yarn add webpack-merge webpack-manifest-plugin extract-text-webpack-plugin path-complete-extname " \
+"compression-webpack-plugin rails-erb-loader glob -D --ignore-engines" \
 
 puts "Webpacker successfully installed 🎉 🍰"
